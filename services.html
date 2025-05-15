@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BarberStyle offers premium haircuts, beard trims, shaves, and grooming services. Book your appointment today for an exceptional barbershop experience.">
+    <meta name="keywords" content="barbershop, haircut, shave, beard trim, grooming, men's haircut, barber services">
+    <title>Our Services - BarberStyle | Premium Barbershop Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Services page specific styles */
+        .service-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .category-btn {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .category-btn.active {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+        }
+        
+        .category-btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            transform: translateY(-3px);
+        }
+        
+        .service-category {
+            display: none;
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .service-category.active {
+            display: block;
+        }
+        
+        .category-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .services-intro {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .service-list {
+            margin-top: 50px;
+        }
+        
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-info {
+            flex: 1;
+        }
+        
+        .service-name {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .service-name i {
+            margin-right: 15px;
+            color: var(--secondary-color);
+            font-size: 24px;
+        }
+        
+        .service-name h3 {
+            margin: 0;
+            font-size: 22px;
+            color: var(--primary-color);
+        }
+        
+        .service-desc {
+            color: #666;
+            font-size: 16px;
+            margin-left: 39px; /* Aligns with the text after icon */
+        }
+        
+        .service-price {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--secondary-color);
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+        
+        .book-btn {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 20px;
+            white-space: nowrap;
+        }
+        
+        .book-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .salon-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 60px 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .service-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+            
+            .service-name {
+                justify-content: center;
+            }
+            
+            .service-desc {
+                margin-left: 0;
+                margin-bottom: 15px;
+            }
+            
+            .service-price {
+                margin: 10px 0;
+            }
+            
+            .book-btn {
+                margin: 10px 0 0 0;
+            }
+            
+            .category-btn {
+                width: calc(50% - 10px);
+                padding: 10px;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+        
+        /* Booking Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .booking-modal {
+            background-color: var(--light-color);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .booking-modal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .booking-modal h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 26px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--secondary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .time-slot {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .time-slot:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .time-slot.selected {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: var(--light-color);
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .booking-confirmation {
+            text-align: center;
+            display: none;
+        }
+        
+        .booking-confirmation .success-icon {
+            font-size: 60px;
+            color: green;
+            margin-bottom: 20px;
+        }
+        
+        .booking-confirmation h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .booking-confirmation p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .highlighted {
+            animation: highlight 2s ease;
+        }
+        
+        @keyframes highlight {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(var(--secondary-color-rgb), 0.2); }
+        }
+        
+        @media (max-width: 768px) {
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>BarberStyle</h1>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="cta-button">
+                <a href="#" class="btn">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Hero Section -->
+    <section id="services" class="services">
+        <!-- Services Video Container -->
+        <div class="services-video-container">
+            <video autoplay muted loop id="services-video">
+                <source src="assets/videos/services.mp4" type="video/mp4">
+                <!-- Fallback for browsers that don't support video -->
+            </video>
+            <div class="video-content">
+                <h3>Expert Grooming</h3>
+                <p>Experience the difference with our skilled barbers</p>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Premium services tailored to your style</p>
+            </div>
+            
+            <p class="services-intro">At BarberStyle, we offer a comprehensive range of premium grooming services for men. Our skilled barbers combine traditional techniques with modern styles to create the perfect look for each individual. Explore our services below and find the perfect treatment for your needs.</p>
+            
+            <!-- Service Categories Tabs -->
+            <div class="service-categories">
+                <button class="category-btn active" data-category="mens-hair">Men's Hair</button>
+                <button class="category-btn" data-category="beard-shave">Beard & Shave</button>
+                <button class="category-btn" data-category="hair-treatments">Hair Treatments</button>
+                <button class="category-btn" data-category="skin-care">Skin Care</button>
+                <button class="category-btn" data-category="kids">Kids</button>
+            </div>
+            
+            <!-- Men's Hair Services -->
+            <div id="mens-hair" class="service-category active">
+                <h3 class="category-title">Men's Hair Services</h3>
+                
+                <div class="service-list">
+                    <div id="haircut" class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-cut"></i>
+                                <h3>Signature Haircut</h3>
+                            </div>
+                            <p class="service-desc">Precision cut tailored to your face shape and style preferences, includes consultation, shampoo, and styling.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-cut"></i>
+                                <h3>Fade Haircut</h3>
+                            </div>
+                            <p class="service-desc">Expertly blended fade haircut tailored to your preference, from skin fade to high fade.</p>
+                        </div>
+                        <div class="service-price">$30</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-cut"></i>
+                                <h3>Senior Haircut (65+)</h3>
+                            </div>
+                            <p class="service-desc">Specialized haircut service for our distinguished senior clients.</p>
+                        </div>
+                        <div class="service-price">$20</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-tint"></i>
+                                <h3>Hair Coloring</h3>
+                            </div>
+                            <p class="service-desc">Professional color services to refresh or completely change your look.</p>
+                        </div>
+                        <div class="service-price">From $45</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Beard & Shave Services -->
+            <div id="beard-shave" class="service-category">
+                <h3 class="category-title">Beard & Shave Services</h3>
+                
+                <div class="service-list">
+                    <div id="beard" class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-tie"></i>
+                                <h3>Beard Trim</h3>
+                            </div>
+                            <p class="service-desc">Expert beard styling and maintenance for a perfect look.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div id="shave" class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-razor"></i>
+                                <h3>Traditional Shave</h3>
+                            </div>
+                            <p class="service-desc">Traditional hot towel shave for the ultimate grooming experience.</p>
+                        </div>
+                        <div class="service-price">$20</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-tie"></i>
+                                <h3>Beard Design</h3>
+                            </div>
+                            <p class="service-desc">Custom beard shaping and design to create a distinctive look that complements your facial features.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-fire"></i>
+                                <h3>Ear Flaming</h3>
+                            </div>
+                            <p class="service-desc">Traditional ear hair removal using our specialized technique.</p>
+                        </div>
+                        <div class="service-price">$10</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hair Treatments -->
+            <div id="hair-treatments" class="service-category">
+                <h3 class="category-title">Hair Treatments</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-pump-soap"></i>
+                                <h3>Deep Conditioning Treatment</h3>
+                            </div>
+                            <p class="service-desc">Hydrating treatment that restores moisture and strengthens hair.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-leaf"></i>
+                                <h3>Scalp Treatment</h3>
+                            </div>
+                            <p class="service-desc">Therapeutic treatment that removes build-up and nourishes the scalp.</p>
+                        </div>
+                        <div class="service-price">$30</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-tint"></i>
+                                <h3>Hair Loss Prevention</h3>
+                            </div>
+                            <p class="service-desc">Specialized treatment to strengthen hair and reduce hair loss.</p>
+                        </div>
+                        <div class="service-price">$40</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skin Care -->
+            <div id="skin-care" class="service-category">
+                <h3 class="category-title">Skin Care</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-spa"></i>
+                                <h3>Facial</h3>
+                            </div>
+                            <p class="service-desc">Rejuvenating facial treatment for clean, healthy skin.</p>
+                        </div>
+                        <div class="service-price">$35</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-sparkles"></i>
+                                <h3>Manicure</h3>
+                            </div>
+                            <p class="service-desc">Complete your grooming with professional hand and nail care.</p>
+                        </div>
+                        <div class="service-price">$20</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-mask"></i>
+                                <h3>Charcoal Mask</h3>
+                            </div>
+                            <p class="service-desc">Deep-cleansing charcoal mask that extracts impurities and rejuvenates the skin.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kids Services -->
+            <div id="kids" class="service-category">
+                <h3 class="category-title">Kids Services</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-child"></i>
+                                <h3>Kids Haircut (Under 12)</h3>
+                            </div>
+                            <p class="service-desc">Special haircut service for the young gentlemen.</p>
+                        </div>
+                        <div class="service-price">$18</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-child"></i>
+                                <h3>Teen Haircut (13-17)</h3>
+                            </div>
+                            <p class="service-desc">Stylish haircuts designed for teenagers.</p>
+                        </div>
+                        <div class="service-price">$22</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-users"></i>
+                                <h3>Father & Son Package</h3>
+                            </div>
+                            <p class="service-desc">Special package including haircuts for both father and son.</p>
+                        </div>
+                        <div class="service-price">$40</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <img src="https://placehold.co/1200x400" alt="Barbershop Interior" class="salon-image">
+            
+            <div class="text-center">
+                <a href="#" class="btn btn-large">Book Your Appointment</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="booking-modal-overlay">
+        <div class="booking-modal">
+            <span class="close-modal">&times;</span>
+            <div class="booking-form">
+                <h2>Book Your Appointment</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="service-input">Service</label>
+                        <input type="text" class="form-control" id="service-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="name-input">Your Name</label>
+                        <input type="text" class="form-control" id="name-input" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email-input">Email Address</label>
+                        <input type="email" class="form-control" id="email-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-input">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone-input" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date-input">Select Date</label>
+                        <input type="date" class="form-control" id="date-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time-slots">Select Time</label>
+                        <div class="time-slots" id="time-slots">
+                            <div class="time-slot" data-time="9:00">9:00 AM</div>
+                            <div class="time-slot" data-time="10:00">10:00 AM</div>
+                            <div class="time-slot" data-time="11:00">11:00 AM</div>
+                            <div class="time-slot" data-time="12:00">12:00 PM</div>
+                            <div class="time-slot" data-time="13:00">1:00 PM</div>
+                            <div class="time-slot" data-time="14:00">2:00 PM</div>
+                            <div class="time-slot" data-time="15:00">3:00 PM</div>
+                            <div class="time-slot" data-time="16:00">4:00 PM</div>
+                            <div class="time-slot" data-time="17:00">5:00 PM</div>
+                            <div class="time-slot" data-time="18:00">6:00 PM</div>
+                            <div class="time-slot" data-time="19:00">7:00 PM</div>
+                        </div>
+                        <input type="hidden" id="time-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes-input">Special Requests (Optional)</label>
+                        <textarea class="form-control" id="notes-input" rows="3" placeholder="Any special requests or preferences"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Confirm Booking</button>
+                </form>
+            </div>
+            <div class="booking-confirmation">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Booking Confirmed!</h3>
+                <p>Thank you for choosing BarberStyle.</p>
+                <p id="confirmation-details"></p>
+                <p>We've sent a confirmation to your email.</p>
+                <button class="submit-btn" id="close-confirmation">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <h3>BarberStyle</h3>
+                    <p>123 Main Street<br>City, State 12345</p>
+                    <p>Phone: (123) 456-7890</p>
+                    <p>Email: info@barberstyle.com</p>
+                </div>
+                <div class="footer-hours">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 9am - 8pm</p>
+                    <p>Saturday: 9am - 6pm</p>
+                    <p>Sunday: 10am - 4pm</p>
+                </div>
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 BarberStyle. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark the services link as active in the navigation
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === 'services.html') {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Category tabs functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const serviceCategories = document.querySelectorAll('.service-category');
+            
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding category
+                    const category = this.getAttribute('data-category');
+                    serviceCategories.forEach(cat => {
+                        cat.classList.remove('active');
+                        if (cat.id === category) {
+                            cat.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Special animations for service items
+            const serviceItems = document.querySelectorAll('.service-item');
+            serviceItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100 + 100); // Staggered animation
+            });
+            
+            // Booking Modal Functionality
+            const modalOverlay = document.getElementById('booking-modal-overlay');
+            const bookingModal = document.querySelector('.booking-modal');
+            const bookingForm = document.querySelector('.booking-form');
+            const bookingConfirmation = document.querySelector('.booking-confirmation');
+            const serviceInput = document.getElementById('service-input');
+            const dateInput = document.getElementById('date-input');
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const timeInput = document.getElementById('time-input');
+            const bookingFormElement = document.getElementById('booking-form');
+            const closeModal = document.querySelector('.close-modal');
+            const closeConfirmation = document.getElementById('close-confirmation');
+            
+            // Set min date to today
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1;
+            let dd = today.getDate();
+            
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            
+            const formattedToday = yyyy + '-' + mm + '-' + dd;
+            dateInput.setAttribute('min', formattedToday);
+            
+            // All Book Now buttons
+            const allBookBtns = document.querySelectorAll('.book-btn');
+            const navBookBtn = document.querySelector('.cta-button .btn');
+            const footerBookBtn = document.querySelector('.text-center .btn');
+            
+            // Open modal function
+            function openBookingModal(serviceName = '') {
+                modalOverlay.classList.add('active');
+                setTimeout(() => {
+                    bookingModal.classList.add('active');
+                }, 100);
+                
+                if (serviceName) {
+                    serviceInput.value = serviceName;
+                } else {
+                    serviceInput.value = 'General Appointment';
+                }
+                
+                // Reset form
+                bookingFormElement.reset();
+                timeSlots.forEach(slot => slot.classList.remove('selected'));
+                timeInput.value = '';
+                
+                // Show form, hide confirmation
+                bookingForm.style.display = 'block';
+                bookingConfirmation.style.display = 'none';
+            }
+            
+            // Close modal function
+            function closeBookingModal() {
+                bookingModal.classList.remove('active');
+                setTimeout(() => {
+                    modalOverlay.classList.remove('active');
+                }, 300);
+            }
+            
+            // Add event listeners to all book buttons
+            allBookBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const serviceItem = this.closest('.service-item');
+                    const serviceName = serviceItem.querySelector('.service-name h3').textContent;
+                    openBookingModal(serviceName);
+                });
+            });
+            
+            // Navigation book button
+            navBookBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openBookingModal();
+            });
+            
+            // Footer book button
+            footerBookBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openBookingModal();
+            });
+            
+            // Close button
+            closeModal.addEventListener('click', closeBookingModal);
+            
+            // Close on overlay click
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    closeBookingModal();
+                }
+            });
+            
+            // Close on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                    closeBookingModal();
+                }
+            });
+            
+            // Time slot selection
+            timeSlots.forEach(slot => {
+                slot.addEventListener('click', function() {
+                    timeSlots.forEach(s => s.classList.remove('selected'));
+                    this.classList.add('selected');
+                    timeInput.value = this.getAttribute('data-time');
+                });
+            });
+            
+            // Form submission
+            bookingFormElement.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                if (!timeInput.value) {
+                    alert('Please select a time slot');
+                    return;
+                }
+                
+                // Show confirmation
+                const name = document.getElementById('name-input').value;
+                const service = serviceInput.value;
+                const date = new Date(dateInput.value);
+                const time = document.querySelector('.time-slot.selected').textContent;
+                
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = date.toLocaleDateString('en-US', options);
+                
+                document.getElementById('confirmation-details').textContent = 
+                    `Your appointment for ${service} is scheduled for ${formattedDate} at ${time}.`;
+                
+                bookingForm.style.display = 'none';
+                bookingConfirmation.style.display = 'block';
+            });
+            
+            // Close confirmation
+            closeConfirmation.addEventListener('click', closeBookingModal);
+            
+            // Scroll to specific service if hash is present in URL
+            if (window.location.hash) {
+                const targetElement = document.querySelector(window.location.hash);
+                if (targetElement) {
+                    // Find the category this service belongs to
+                    const parentCategory = targetElement.closest('.service-category');
+                    if (parentCategory) {
+                        // Activate the correct category tab
+                        serviceCategories.forEach(cat => cat.classList.remove('active'));
+                        parentCategory.classList.add('active');
+                        
+                        // Update the active button
+                        const categoryId = parentCategory.id;
+                        categoryBtns.forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.getAttribute('data-category') === categoryId) {
+                                btn.classList.add('active');
+                            }
+                        });
+                        
+                        // Wait for the page to load properly
+                        setTimeout(() => {
+                            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                            const yOffset = -navbarHeight - 20; // Add some extra space
+                            const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                            
+                            window.scrollTo({
+                                top: y,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Highlight the target service item
+                            targetElement.classList.add('highlighted');
+                            setTimeout(() => {
+                                targetElement.classList.remove('highlighted');
+                            }, 2000);
+                        }, 300);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
