@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Base styles */
         .navbar {
             position: fixed;
             top: 0;
@@ -79,25 +80,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
-        @media (max-width: 768px) {
-            .navbar .container {
-                padding: 0 15px;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .cta-button {
-                margin-left: 10px;
-            }
-            
-            .cta-button .btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-        }
-
         /* Contact page specific styles */
         .contact-section {
             padding: 120px 0 80px;
@@ -219,6 +201,17 @@
             border: 0;
         }
         
+        /* Responsive styles */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .contact-grid {
+                gap: 30px;
+            }
+        }
+        
         @media (max-width: 992px) {
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -230,6 +223,160 @@
             
             .form-container {
                 order: 1;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar .container {
+                padding: 0 15px;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #000000;
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
+                width: 100%;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 10px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                color: var(--light-color);
+                font-size: 24px;
+                cursor: pointer;
+            }
+            
+            .cta-button {
+                margin-left: 10px;
+            }
+            
+            .cta-button .btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .contact-section {
+                padding: 100px 0 60px;
+            }
+            
+            .contact-info,
+            .form-container {
+                padding: 30px;
+            }
+            
+            .contact-info h3,
+            .form-container h3 {
+                font-size: 24px;
+            }
+            
+            .contact-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .map-container {
+                height: 350px;
+                margin-top: 60px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .contact-section {
+                padding: 80px 0 40px;
+            }
+            
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .contact-info,
+            .form-container {
+                padding: 20px;
+            }
+            
+            .contact-info h3,
+            .form-container h3 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            
+            .contact-detail {
+                margin-bottom: 20px;
+            }
+            
+            .contact-icon {
+                width: 35px;
+                height: 35px;
+                margin-right: 10px;
+            }
+            
+            .contact-text h4 {
+                font-size: 16px;
+            }
+            
+            .form-control {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .submit-btn {
+                width: 100%;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .map-container {
+                height: 300px;
+                margin-top: 40px;
+            }
+        }
+        
+        /* Add mobile menu toggle functionality */
+        .menu-toggle {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-menu.active {
+                display: flex;
             }
         }
     </style>
@@ -401,6 +548,23 @@
     <script>
         // Page-specific script for contact page
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+            
             // Mark the contact link as active in the navigation
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {
