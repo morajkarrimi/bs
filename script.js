@@ -170,32 +170,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial check
     checkVisibility();
-    
-    // Service video preview functionality
-    const serviceVideos = document.querySelectorAll('.service-video');
-    const videoPreviews = document.querySelectorAll('.service-video-preview');
-    
-    videoPreviews.forEach((preview, index) => {
-        const video = serviceVideos[index];
-        
-        // Play video on hover
-        preview.addEventListener('mouseenter', () => {
-            video.play();
-        });
-        
-        // Pause video when mouse leaves
-        preview.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0;
-        });
-        
-        // Play/pause on click
-        preview.addEventListener('click', () => {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        });
-    });
 }); 

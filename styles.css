@@ -354,14 +354,12 @@ section {
 }
 
 .service-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 20px;
-    margin-bottom: 20px;
+    text-align: center;
+    padding: 40px 20px;
     background-color: var(--light-color);
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .service-item:hover {
@@ -1433,103 +1431,4 @@ section {
     color: var(--secondary-color);
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Service Video Preview Styles */
-.service-video-preview {
-    position: relative;
-    width: 200px;
-    height: 150px;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-right: 20px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.service-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.3s ease;
-}
-
-.video-overlay i {
-    color: white;
-    font-size: 24px;
-    opacity: 0.8;
-    transition: all 0.3s ease;
-}
-
-.service-video-preview:hover .video-overlay {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.service-video-preview:hover .video-overlay i {
-    transform: scale(1.2);
-    opacity: 1;
-}
-
-.service-video-preview:hover .service-video {
-    transform: scale(1.1);
-}
-
-/* Update service item layout */
-.service-item {
-    display: flex;
-    align-items: flex-start;
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: var(--light-color);
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.service-info {
-    flex: 1;
-    padding-right: 20px;
-}
-
-.service-price {
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--secondary-color);
-    margin-top: 15px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .service-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .service-video-preview {
-        width: 100%;
-        height: 200px;
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-    
-    .service-info {
-        padding-right: 0;
-    }
-    
-    .service-price {
-        margin-top: 10px;
-    }
 } 
