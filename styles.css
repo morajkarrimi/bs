@@ -125,10 +125,10 @@ section {
 }
 
 /* Header */
-.header {
+.header, .navbar {
     background-color: var(--primary-color);
     color: var(--light-color);
-    padding: 20px 0;
+    padding: 15px 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -138,10 +138,11 @@ section {
     transition: all 0.3s ease;
 }
 
-.header .container {
+.header .container, .navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
 .logo h1 {
@@ -150,48 +151,45 @@ section {
     color: var(--secondary-color);
 }
 
-.main-nav {
+.nav-menu {
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     align-items: center;
 }
 
-.nav-menu {
-    display: flex;
-}
-
 .nav-menu li {
-    margin-left: 25px;
+    margin: 0 15px;
 }
 
 .nav-menu a {
+    color: var(--light-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
     position: relative;
     padding: 5px 0;
 }
 
-.nav-menu a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--secondary-color);
-    transition: width 0.3s ease;
-}
-
-.nav-menu a:hover::after {
-    width: 100%;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 15px;
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--secondary-color);
 }
 
 .menu-toggle {
     display: none;
     font-size: 24px;
     cursor: pointer;
+    color: var(--light-color);
+    z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.menu-toggle.active {
+    color: var(--secondary-color);
 }
 
 /* Hero Section */
@@ -294,33 +292,6 @@ section {
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* Fix for navbar overlap with hero section */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-}
-
-.navbar.scrolled {
-    background-color: var(--primary-color);
-    box-shadow: var(--shadow);
-}
-
-/* Responsive adjustments for hero section */
-@media (max-width: 768px) {
-    .hero .hero-content h1 {
-        font-size: 2.5rem;
-    }
-    
-    .hero .hero-content p {
-        font-size: 1.2rem;
     }
 }
 
@@ -988,30 +959,44 @@ section {
 
     .nav-menu {
         position: fixed;
-        top: 80px;
+        top: 70px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 70px);
         background-color: var(--primary-color);
         flex-direction: column;
         align-items: center;
         padding: 40px 0;
         transition: 0.3s ease;
+        z-index: 999;
+        overflow-y: auto;
     }
 
     .nav-menu.active {
         left: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .nav-menu li {
         margin: 15px 0;
+        width: 100%;
+        text-align: center;
     }
 
-    .menu-toggle {
+    .nav-menu a {
         display: block;
+        padding: 15px 0;
+        width: 100%;
+        font-size: 18px;
     }
 
-    .cta-buttons {
+    .nav-menu a:hover,
+    .nav-menu a.active {
+        color: var(--secondary-color);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .cta-button {
         display: none;
     }
 
@@ -1070,11 +1055,28 @@ section {
     .video-content p {
         font-size: 1rem;
     }
+
+    .menu-toggle {
+        display: block;
+    }
 }
 
 @media (max-width: 576px) {
     .container {
         padding: 0 15px;
+    }
+
+    .header .container, .navbar .container {
+        padding: 0 15px;
+    }
+    
+    .logo h1 {
+        font-size: 20px;
+    }
+    
+    .cta-button .btn {
+        padding: 8px 20px;
+        font-size: 14px;
     }
 
     .hero .hero-content h1 {
@@ -1101,11 +1103,6 @@ section {
 
     .service-card p {
         font-size: 0.9rem;
-    }
-
-    .btn {
-        padding: 10px 20px;
-        font-size: 13px;
     }
 
     .about-video-container {

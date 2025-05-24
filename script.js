@@ -10,37 +10,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const servicesVideoEl = document.getElementById('services-video');
     const aboutVideoEl = document.getElementById('about-video');
     
+    // Mobile menu toggle
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling up
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && 
+                !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+    }
+    
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
-            backToTopBtn.style.display = 'flex';
+            if (backToTopBtn) backToTopBtn.style.display = 'flex';
         } else {
             navbar.classList.remove('scrolled');
-            backToTopBtn.style.display = 'none';
+            if (backToTopBtn) backToTopBtn.style.display = 'none';
         }
     });
     
-    // Mobile menu toggle
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-    }
-    
-    // Close mobile menu when a link is clicked
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            
-            // Update active class
-            navLinks.forEach(item => item.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-    // Back to top button click
+    // Back to top button
     if (backToTopBtn) {
         backToTopBtn.addEventListener('click', function() {
             window.scrollTo({

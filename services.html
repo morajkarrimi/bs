@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BarberStyle offers premium haircuts, beard trims, shaves, and grooming services. Book your appointment today for an exceptional barbershop experience.">
+    <meta name="description" content="Healing Hands offers premium haircuts, beard trims, shaves, and grooming services. Book your appointment today for an exceptional barbershop experience.">
     <meta name="keywords" content="barbershop, haircut, shave, beard trim, grooming, men's haircut, barber services">
-    <title>Our Services - BarberStyle | Premium Barbershop Experience</title>
+    <title>Our Services - Healing Hands | Premium Salon Experience</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +17,45 @@
             flex-wrap: wrap;
             gap: 15px;
             margin: 40px 0;
+        }
+        
+        /* Mobile menu styles */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--light-color);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .cta-button {
+                display: none;
+            }
         }
         
         .category-btn {
@@ -187,6 +226,17 @@
             
             .service-price {
                 margin: 10px 0;
+            }
+            
+            .book-btn {
+                margin: 10px 0 0 0;
+            }
+            
+            .category-btn {
+                width: calc(50% - 10px);
+                padding: 10px;
+                font-size: 16px;
+                text-align: center;
             }
         }
         
@@ -360,145 +410,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
-        .text-center {
-            text-align: center;
-            margin: 60px 0;
-            padding: 20px;
-            background-color: var(--light-color);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .btn-large {
-            display: inline-block;
-            padding: 18px 45px;
-            font-size: 20px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            background-color: var(--secondary-color);
-            color: var(--light-color);
-            border: 2px solid var(--secondary-color);
-            border-radius: 35px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-large:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn-large:active {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .text-center {
-                margin: 40px 0;
-                padding: 15px;
-            }
-            
-            .btn-large {
-                padding: 15px 35px;
-                font-size: 18px;
-            }
-        }
-        
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--light-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 15px 0;
-        }
-        
-        .navbar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        
-        .logo h1 {
-            margin: 0;
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
-        
-        .nav-menu li {
-            margin: 0 15px;
-        }
-        
-        .nav-menu a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: var(--secondary-color);
-        }
-        
-        .cta-button {
-            margin-left: 20px;
-        }
-        
-        .cta-button .btn {
-            background-color: var(--secondary-color);
-            color: var(--light-color);
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .cta-button .btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        @media (max-width: 768px) {
-            .navbar .container {
-                padding: 0 15px;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .cta-button {
-                margin-left: 10px;
-            }
-            
-            .cta-button .btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -506,7 +417,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="logo">
-                <h1>BarberStyle</h1>
+                <h1>Healing Hands</h1>
             </div>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
@@ -524,7 +435,7 @@
     </nav>
 
     <!-- Services Hero Section -->
-    <section id="services" class="services">
+    <section id="services" class="services-section" style="padding-top: 0;">
         <!-- Services Video Container -->
         <div class="services-video-container">
             <video autoplay muted loop id="services-video">
@@ -543,71 +454,374 @@
                 <p>Premium services tailored to your style</p>
             </div>
             
-            <p class="services-intro">At BarberStyle, we offer a comprehensive range of premium grooming services for men. Our skilled barbers combine traditional techniques with modern styles to create the perfect look for each individual. Explore our services below and find the perfect treatment for your needs.</p>
+            <p class="services-intro">At HealingHands, we offer a comprehensive range of premium grooming services for men. Our skilled barbers combine traditional techniques with modern styles to create the perfect look for each individual. Explore our services below and find the perfect treatment for your needs.</p>
             
             <!-- Service Categories Tabs -->
             <div class="service-categories">
-                <button class="category-btn active" data-category="all-services">All Services</button>
+                <button class="category-btn active" data-category="facial">Facial</button>
+                <button class="category-btn" data-category="waxing">Waxing</button>
+                <button class="category-btn" data-category="shaving">Shaving</button>
+                <button class="category-btn" data-category="combos">COMBOS</button>
             </div>
             
-            <!-- All Services -->
-            <div id="all-services" class="service-category active">
-                <h3 class="category-title">Our Services</h3>
+            <!-- Men's Hair Services -->
+            <div id="facial" class="service-category active">
+                <h3 class="category-title">Facial Services</h3>
+                
+                <div class="service-list">
+                    <div id="facialservice" class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-spa"></i>
+                                <h3>Mini Facial</h3>
+                            </div>
+                            <p class="service-desc">A quick skincare treatment that refreshes and rejuvenates the skin in just 30 minutes. 
+                            </p>
+                        </div>
+                        <div class="service-price">$45</div>
+                        <div class="service-price">30 min</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-magic"></i>
+                                <h3>Microdermabrasion</h3>
+                            </div>
+                            <p class="service-desc">Revitalize your skin with expert microdermabrasion—gentle exfoliation for a smoother, radiant glow!</p>
+                        </div>
+                        <div class="service-price">$80</div>
+                        <div class="service-price">60 min</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-mask"></i>
+                                <h3>Facial with Mask</h3>
+                            </div>
+                            <p class="service-desc">Indulge in a luxurious facial with a soothing mask(GOLD-CHARCOAL-PEARL)—refresh, hydrate, and glow!</p>
+                        </div>
+                        <div class="service-price">$120</div>
+                        <div class="service-price">60 min</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-wind"></i>
+                                <h3>Aroma Facial</h3>
+                            </div>
+                            <p class="service-desc">Relax and rejuvenate with an aroma facial—soothing scents, deep hydration, and radiant skin!</p>
+                        </div>
+                        <div class="service-price"> $100 </div>
+                        <div class="service-price"> 60 min </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Waxing Services -->
+            <div id="waxing" class="service-category">
+                <h3 class="category-title">Waxing Services</h3>
+                
+                <div class="service-list">
+                    <div id="waxService" class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-walking"></i>
+                                <h3>Full Legs</h3>
+                            </div>
+                            <p class="service-desc">Complete leg waxing from hip to toe for smooth, hair-free legs.</p>
+                        </div>
+                        <div class="service-price">$30</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-socks"></i>
+                                <h3>Half Legs</h3>
+                            </div>
+                            <p class="service-desc">Waxing from knee to toe for a clean, smooth look.</p>
+                        </div>
+                        <div class="service-price">$20</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-paper"></i>
+                                <h3>Full Arms</h3>
+                            </div>
+                            <p class="service-desc">Complete arm waxing from shoulder to wrist for silky smooth skin.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-point-up"></i>
+                                <h3>Half Arms</h3>
+                            </div>
+                            <p class="service-desc">Waxing from elbow to wrist for a clean, polished look.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hands"></i>
+                                <h3>Hands & Toes</h3>
+                            </div>
+                            <p class="service-desc">Precise waxing for hands and toes to remove unwanted hair.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user"></i>
+                                <h3>Back and Shoulders</h3>
+                            </div>
+                            <p class="service-desc">Complete back and shoulder waxing for a smooth, clean appearance.</p>
+                        </div>
+                        <div class="service-price">$35</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user"></i>
+                                <h3>Back</h3>
+                            </div>
+                            <p class="service-desc">Professional back waxing service for a hair-free, smooth back.</p>
+                        </div>
+                        <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-head-side"></i>
+                                <h3>Ear and Nose</h3>
+                            </div>
+                            <p class="service-desc">Gentle waxing for ear and nose hair removal.</p>
+                        </div>
+                        <div class="service-price">$10</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-female"></i>
+                                <h3>Brazilian Wax</h3>
+                            </div>
+                            <p class="service-desc">Complete intimate waxing service for a clean, smooth result.</p>
+                        </div>
+                        <div class="service-price">$45</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-spa"></i>
+                                <h3>Vaja Facial</h3>
+                            </div>
+                            <p class="service-desc">Intimate area facial treatment for smooth, healthy skin.</p>
+                        </div>
+                        <div class="service-price">$50</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-tshirt"></i>
+                                <h3>Underarms</h3>
+                            </div>
+                            <p class="service-desc">Quick and effective underarm waxing for smooth, hair-free skin.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-circle"></i>
+                                <h3>Full Body Waxing</h3>
+                            </div>
+                            <p class="service-desc">Complete body waxing package for a smooth, hair-free appearance from head to toe.</p>
+                        </div>
+                        <div class="service-price">$120</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Shaving Services -->
+            <div id="shaving" class="service-category">
+                <h3 class="category-title">Shaving Services</h3>
                 
                 <div class="service-list">
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-spa"></i>
-                                <h3>Facial Treatment</h3>
+                                <i class="fas fa-razor"></i>
+                                <h3>Classic Shave</h3>
                             </div>
-                            <p class="service-desc">Rejuvenating facial treatment with deep cleansing, exfoliation, and hydration for radiant skin.</p>
-                        </div>
-                        <div class="service-price">$45</div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">
-                                <i class="fas fa-hands"></i>
-                                <h3>Massage Therapy</h3>
-                            </div>
-                            <p class="service-desc">Professional massage therapy to relieve stress, tension, and promote overall wellness.</p>
-                        </div>
-                        <div class="service-price">$60</div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">
-                                <i class="fas fa-shoe-prints"></i>
-                                <h3>Pedicure</h3>
-                            </div>
-                            <p class="service-desc">Complete foot care including nail trimming, cuticle care, exfoliation, and polish.</p>
+                            <p class="service-desc">Traditional straight razor shave with hot towel treatment and premium shaving products.</p>
                         </div>
                         <div class="service-price">$35</div>
+                        <button class="book-btn">Book Now</button>
                     </div>
                     
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
                                 <i class="fas fa-cut"></i>
-                                <h3>Shaving Service</h3>
+                                <h3>Beard Trim & Shape</h3>
                             </div>
-                            <p class="service-desc">Traditional straight razor shave with hot towel treatment and premium shaving products.</p>
+                            <p class="service-desc">Professional beard trimming and shaping to maintain your desired style and look.</p>
                         </div>
                         <div class="service-price">$25</div>
+                        <button class="book-btn">Book Now</button>
                     </div>
                     
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-fire"></i>
-                                <h3>Waxing</h3>
+                                <i class="fas fa-mustache"></i>
+                                <h3>Mustache Trim</h3>
                             </div>
-                            <p class="service-desc">Professional waxing services for smooth, hair-free skin with minimal discomfort.</p>
+                            <p class="service-desc">Precise mustache trimming and styling for a clean, well-maintained look.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-tie"></i>
+                                <h3>Executive Shave</h3>
+                            </div>
+                            <p class="service-desc">Premium shaving experience with hot towel treatment, facial massage, and luxury after-shave care.</p>
+                        </div>
+                        <div class="service-price">$45</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-head-side"></i>
+                                <h3>Head Shave</h3>
+                            </div>
+                            <p class="service-desc">Professional head shaving service with hot towel treatment and soothing after-care.</p>
                         </div>
                         <div class="service-price">$30</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-gift"></i>
+                                <h3>Shave & Style Package</h3>
+                            </div>
+                            <p class="service-desc">Complete grooming package including shave, beard trim, and styling for a fresh, polished look.</p>
+                        </div>
+                        <div class="service-price">$60</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Combos -->
+            <div id="combos" class="service-category">
+                <h3 class="category-title">Combos</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-spa"></i>
+                                <h3>Facial and Massage</h3>
+                            </div>
+                            <p class="service-desc">Luxurious combination of a rejuvenating facial treatment followed by a relaxing full-body massage for ultimate pampering.</p>
+                        </div>
+                        <div class="service-price">$140</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-sparkles"></i>
+                                <h3>Body Scrub and Massage</h3>
+                            </div>
+                            <p class="service-desc">Exfoliating body scrub treatment followed by a therapeutic massage to leave your skin smooth and your body relaxed.</p>
+                        </div>
+                        <div class="service-price">$240</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Kids Services -->
+            <div id="kids" class="service-category">
+                <h3 class="category-title">Kids Services</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-child"></i>
+                                <h3>Kids Haircut (Under 12)</h3>
+                            </div>
+                            <p class="service-desc">Special haircut service for the young gentlemen.</p>
+                        </div>
+                        <div class="service-price">$18</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-child"></i>
+                                <h3>Teen Haircut (13-17)</h3>
+                            </div>
+                            <p class="service-desc">Stylish haircuts designed for teenagers.</p>
+                        </div>
+                        <div class="service-price">$22</div>
+                        <button class="book-btn">Book Now</button>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-users"></i>
+                                <h3>Father & Son Package</h3>
+                            </div>
+                            <p class="service-desc">Special package including haircuts for both father and son.</p>
+                        </div>
+                        <div class="service-price">$40</div>
+                        <button class="book-btn">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -676,7 +890,7 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h3>Booking Confirmed!</h3>
-                <p>Thank you for choosing BarberStyle.</p>
+                <p>Thank you for choosing HealingHands.</p>
                 <p id="confirmation-details"></p>
                 <p>We've sent a confirmation to your email.</p>
                 <button class="submit-btn" id="close-confirmation">Done</button>
@@ -689,10 +903,10 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <h3>BarberStyle</h3>
+                    <h3>HealingHands</h3>
                     <p>123 Main Street<br>City, State 12345</p>
                     <p>Phone: (123) 456-7890</p>
-                    <p>Email: info@barberstyle.com</p>
+                    <p>Email: info@healinghands.com</p>
                 </div>
                 <div class="footer-hours">
                     <h3>Hours</h3>
@@ -711,7 +925,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 BarberStyle. All rights reserved.</p>
+                <p>&copy; 2024 HealingHands. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -724,6 +938,23 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+
             // Mark the services link as active in the navigation
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {

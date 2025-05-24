@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact BarberStyle for appointments, questions, or feedback. Visit our barbershop or reach out via phone, email, or our contact form.">
-    <meta name="keywords" content="barbershop contact, book appointment, barber location, barbershop hours">
-    <title>Contact Us - BarberStyle | Premium Barbershop Experience</title>
+    <meta name="description" content="Contact Healing Hands for appointments and inquiries. We're here to provide you with the best barbershop experience.">
+    <meta name="keywords" content="barbershop contact, barber appointment, barbershop location, barber contact">
+    <title>Contact Us - Healing Hands | Premium Barbershop Experience</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -78,6 +78,45 @@
             background-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Mobile menu styles */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--light-color);
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .cta-button {
+                display: none;
+            }
         }
         
         /* Contact page specific styles */
@@ -230,78 +269,6 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .navbar .container {
-                padding: 0 15px;
-            }
-            
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: #000000;
-                padding: 20px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .nav-menu li {
-                margin: 10px 0;
-                width: 100%;
-            }
-            
-            .nav-menu a {
-                display: block;
-                padding: 10px 0;
-            }
-            
-            .menu-toggle {
-                display: block;
-                color: var(--light-color);
-                font-size: 24px;
-                cursor: pointer;
-            }
-            
-            .cta-button {
-                margin-left: 10px;
-            }
-            
-            .cta-button .btn {
-                padding: 8px 20px;
-                font-size: 14px;
-            }
-            
-            .contact-section {
-                padding: 100px 0 60px;
-            }
-            
-            .contact-info,
-            .form-container {
-                padding: 30px;
-            }
-            
-            .contact-info h3,
-            .form-container h3 {
-                font-size: 24px;
-            }
-            
-            .contact-icon {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .map-container {
-                height: 350px;
-                margin-top: 60px;
-            }
-        }
-        
         @media (max-width: 576px) {
             .container {
                 padding: 0 15px;
@@ -360,25 +327,6 @@
                 margin-top: 40px;
             }
         }
-        
-        /* Add mobile menu toggle functionality */
-        .menu-toggle {
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-        }
     </style>
 </head>
 <body>
@@ -386,7 +334,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="logo">
-                <h1>BarberStyle</h1>
+                <h1>HealingHands</h1>
             </div>
             <div class="menu-toggle">
                 <i class="fas fa-bars"></i>
@@ -512,7 +460,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <h3>BarberStyle</h3>
+                    <h3>HealingHands</h3>
                     <p>123 Main Street<br>City, State 12345</p>
                     <p>Phone: (123) 456-7890</p>
                     <p>Email: info@barberstyle.com</p>
@@ -534,7 +482,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 BarberStyle. All rights reserved.</p>
+                <p>&copy; 2024 HealingHands. All rights reserved.</p>
             </div>
         </div>
     </footer>
