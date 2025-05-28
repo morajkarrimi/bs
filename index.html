@@ -279,6 +279,133 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        .services-section {
+            position: relative;
+            padding: 80px 0;
+            color: var(--light-color);
+            overflow: hidden;
+        }
+
+        .services-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .services-video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .services-video-container .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .services-section .section-header h2 {
+            color: var(--light-color);
+        }
+
+        .services-section .section-header p {
+            color: var(--light-color);
+            opacity: 0.9;
+        }
+
+        .services-section .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            width: 280px;
+            height: 320px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .services-section .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .services-section .service-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .services-section .service-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .services-section .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .services-section .service-card p {
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .services-section .service-link,
+        .services-section .learn-more {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: color 0.3s ease;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .services-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        @media (max-width: 1200px) {
+            .services-grid {
+                justify-content: flex-start;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                gap: 15px;
+            }
+            
+            .services-section .service-card {
+                min-width: 200px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -323,14 +450,13 @@
         </div>
     </section>
 
-    <!-- Services Teaser Section -->
-    <section id="services-teaser" class="services-teaser">
-        <!-- Services Teaser Video Background -->
-        <div class="services-teaser-video-container">
-            <video autoplay muted loop id="services-teaser-video">
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <!-- Services Video Background -->
+        <div class="services-video-container">
+            <video autoplay muted loop id="services-video">
                 <source src="assets/videos/services.mp4" type="video/mp4">
                 <!-- Fallback for browsers that don't support video -->
-                <!-- Note: Add your 'services-teaser.mp4' file to assets/videos/ directory -->
             </video>
             <div class="overlay"></div>
         </div>
@@ -338,34 +464,48 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Premium Services</h2>
-                <p>Discover the full range of services we offer</p>
+                <p>Experience excellence in every treatment</p>
             </div>
             
-            <div class="services-teaser-grid">
-                <div class="service-teaser-card" onclick="window.location.href='services.html#facial'">
+            <div class="services-grid">
+                <div class="service-card" onclick="window.location.href='services.html#facial'">
                     <div class="service-icon">
-                        <i class="fas fa-cut"></i>
+                        <i class="fas fa-spa"></i>
                     </div>
-                    <h3>Facial</h3>
-                    <p>Precision cut tailored to your style</p>
+                    <h3>Facial Treatments</h3>
+                    <p>Rejuvenate your skin with our premium facial treatments, including deep cleansing, exfoliation, and hydration.</p>
+                    <a href="services.html#facial" class="service-link">Learn More</a>
                 </div>
-                <div class="service-teaser-card" onclick="window.location.href='services.html#wax'">
+
+                <div class="service-card" onclick="window.location.href='services.html#shaving'">
                     <div class="service-icon">
                         <i class="fas fa-razor"></i>
                     </div>
-                    <h3>Wax</h3>
-                    <p>Traditional hot towel experience</p>
+                    <h3>Shaving Services</h3>
+                    <p>Experience the art of traditional shaving with our expert barbers using premium products and techniques.</p>
+                    <a href="services.html#shaving" class="service-link">Learn More</a>
                 </div>
-                <div class="service-teaser-card" onclick="window.location.href='services.html#haircut'">
+
+                <div class="service-card" onclick="window.location.href='services.html#waxing'">
                     <div class="service-icon">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fas fa-fire"></i>
                     </div>
-                    <h3>Haircut</h3>
-                    <p>Expert styling and grooming</p>
+                    <h3>Waxing Services</h3>
+                    <p>Professional waxing services for smooth, hair-free skin using high-quality products and gentle techniques.</p>
+                    <a href="services.html#waxing" class="service-link">Learn More</a>
+                </div>
+
+                <div class="service-card" onclick="window.location.href='services.html#massage'">
+                    <div class="service-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>Massage Services</h3>
+                    <p>Experience ultimate relaxation with our therapeutic massage treatments, designed to relieve stress and promote wellness.</p>
+                    <a href="services.html#massage" class="service-link">Learn More</a>
                 </div>
             </div>
             
-            <div class="text-center">
+            <div class="text-center" style="margin-top: 40px;">
                 <a href="services.html" class="btn btn-large">View All Services</a>
             </div>
         </div>
@@ -400,7 +540,7 @@
                 <div class="footer-hours">
                     <h3>Hours</h3>
                     <p>Monday - Saturday: 9am - 8pm</p>
-                    <p>Sunday: 10am - 4pm</p>
+                    <p>Sunday: Closed</p>
                 </div>
                 <div class="footer-social">
                     <h3>Follow Us</h3>

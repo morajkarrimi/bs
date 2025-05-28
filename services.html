@@ -410,6 +410,35 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        .service-subcategories {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.03);
+            border-radius: 5px;
+        }
+
+        .subcategory {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .subcategory:last-child {
+            border-bottom: none;
+        }
+
+        .subcategory .duration {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .subcategory .price {
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
     </style>
 </head>
 <body>
@@ -424,7 +453,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="#services">Services</a></li>
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -461,6 +490,7 @@
                 <button class="category-btn active" data-category="facial">Facial</button>
                 <button class="category-btn" data-category="waxing">Waxing</button>
                 <button class="category-btn" data-category="shaving">Shaving</button>
+                <button class="category-btn" data-category="massage">Massage</button>
                 <button class="category-btn" data-category="combos">COMBOS</button>
             </div>
             
@@ -532,9 +562,17 @@
                                 <h3>Full Legs</h3>
                             </div>
                             <p class="service-desc">Complete leg waxing from hip to toe for smooth, hair-free legs.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">Less Hairy (45 min)</span>
+                                    <span class="price">$40</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">More Hairy (60 min)</span>
+                                    <span class="price">$70</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="service-price">$30</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
                     
                     <div class="service-item">
@@ -545,8 +583,8 @@
                             </div>
                             <p class="service-desc">Waxing from knee to toe for a clean, smooth look.</p>
                         </div>
-                        <div class="service-price">$20</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$35</div>
+                        <div class="service-price">20 min</div>
                     </div>
                     
                     <div class="service-item">
@@ -557,8 +595,8 @@
                             </div>
                             <p class="service-desc">Complete arm waxing from shoulder to wrist for silky smooth skin.</p>
                         </div>
-                        <div class="service-price">$25</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$30</div>
+                        <div class="service-price">30 min</div>
                     </div>
                     
                     <div class="service-item">
@@ -570,7 +608,7 @@
                             <p class="service-desc">Waxing from elbow to wrist for a clean, polished look.</p>
                         </div>
                         <div class="service-price">$15</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">20 min</div>
                     </div>
 
                     <div class="service-item">
@@ -581,8 +619,8 @@
                             </div>
                             <p class="service-desc">Precise waxing for hands and toes to remove unwanted hair.</p>
                         </div>
-                        <div class="service-price">$15</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$10</div>
+                        <div class="service-price">15 min</div>
                     </div>
 
                     <div class="service-item">
@@ -592,9 +630,17 @@
                                 <h3>Back and Shoulders</h3>
                             </div>
                             <p class="service-desc">Complete back and shoulder waxing for a smooth, clean appearance.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">Less Hairy (30 min)</span>
+                                    <span class="price">$50</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">More Hairy (45 min)</span>
+                                    <span class="price">$70</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="service-price">$35</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
 
                     <div class="service-item">
@@ -605,20 +651,20 @@
                             </div>
                             <p class="service-desc">Professional back waxing service for a hair-free, smooth back.</p>
                         </div>
-                        <div class="service-price">$25</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$60</div>
+                        <div class="service-price">45 min</div>
                     </div>
 
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-head-side"></i>
+                                <i class="fas fa-user-circle"></i>
                                 <h3>Ear and Nose</h3>
                             </div>
                             <p class="service-desc">Gentle waxing for ear and nose hair removal.</p>
                         </div>
-                        <div class="service-price">$10</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$15</div>
+                        <div class="service-price">15 min</div>
                     </div>
 
                     <div class="service-item">
@@ -628,9 +674,17 @@
                                 <h3>Brazilian Wax</h3>
                             </div>
                             <p class="service-desc">Complete intimate waxing service for a clean, smooth result.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">With Crack (30 min)</span>
+                                    <span class="price">$70</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">With Full Bum (45 min)</span>
+                                    <span class="price">$85</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="service-price">$45</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
 
                     <div class="service-item">
@@ -641,8 +695,8 @@
                             </div>
                             <p class="service-desc">Intimate area facial treatment for smooth, healthy skin.</p>
                         </div>
-                        <div class="service-price">$50</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$120</div>
+                        <div class="service-price">60 min</div>
                     </div>
 
                     <div class="service-item">
@@ -654,19 +708,19 @@
                             <p class="service-desc">Quick and effective underarm waxing for smooth, hair-free skin.</p>
                         </div>
                         <div class="service-price">$15</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">15 min</div>
                     </div>
 
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
                                 <i class="fas fa-user-circle"></i>
-                                <h3>Full Body Waxing</h3>
+                                <h3>Full Body</h3>
                             </div>
                             <p class="service-desc">Complete body waxing package for a smooth, hair-free appearance from head to toe.</p>
                         </div>
-                        <div class="service-price">$120</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$300</div>
+                        <div class="service-price">3 hrs</div>
                     </div>
                     
                 </div>
@@ -680,73 +734,220 @@
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-razor"></i>
-                                <h3>Classic Shave</h3>
+                                <i class="fas fa-walking"></i>
+                                <h3>Full Legs Shave</h3>
                             </div>
-                            <p class="service-desc">Traditional straight razor shave with hot towel treatment and premium shaving products.</p>
+                            <p class="service-desc">Professional leg shaving service for smooth, hair-free legs from hip to toe.</p>
                         </div>
-                        <div class="service-price">$35</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$40</div>
+                        <div class="service-price">20 min</div>
                     </div>
                     
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-cut"></i>
-                                <h3>Beard Trim & Shape</h3>
+                                <i class="fas fa-socks"></i>
+                                <h3>Half Legs Shave</h3>
                             </div>
-                            <p class="service-desc">Professional beard trimming and shaping to maintain your desired style and look.</p>
+                            <p class="service-desc">Quick and efficient shaving service from knee to toe.</p>
+                        </div>
+                        <div class="service-price">$20</div>
+                        <div class="service-price">20 min</div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-paper"></i>
+                                <h3>Full Arms Shave</h3>
+                            </div>
+                            <p class="service-desc">Complete arm shaving service from shoulder to wrist for smooth skin.</p>
                         </div>
                         <div class="service-price">$25</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">30 min</div>
                     </div>
                     
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-mustache"></i>
-                                <h3>Mustache Trim</h3>
+                                <i class="fas fa-hand-point-up"></i>
+                                <h3>Half Arms Shave</h3>
                             </div>
-                            <p class="service-desc">Precise mustache trimming and styling for a clean, well-maintained look.</p>
+                            <p class="service-desc">Precise shaving service from elbow to wrist.</p>
                         </div>
                         <div class="service-price">$15</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">20 min</div>
                     </div>
 
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-user-tie"></i>
-                                <h3>Executive Shave</h3>
+                                <i class="fas fa-hands"></i>
+                                <h3>Hands & Toes Shave</h3>
                             </div>
-                            <p class="service-desc">Premium shaving experience with hot towel treatment, facial massage, and luxury after-shave care.</p>
+                            <p class="service-desc">Complimentary service for hands and toes hair removal.</p>
                         </div>
-                        <div class="service-price">$45</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">FREE</div>
+                        <div class="service-price">15 min</div>
                     </div>
 
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-head-side"></i>
-                                <h3>Head Shave</h3>
+                                <i class="fas fa-user"></i>
+                                <h3>Back and Shoulders Shave</h3>
                             </div>
-                            <p class="service-desc">Professional head shaving service with hot towel treatment and soothing after-care.</p>
+                            <p class="service-desc">Professional back and shoulder shaving for a clean, smooth appearance.</p>
                         </div>
-                        <div class="service-price">$30</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$50</div>
+                        <div class="service-price">30 min</div>
                     </div>
 
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">
-                                <i class="fas fa-gift"></i>
-                                <h3>Shave & Style Package</h3>
+                                <i class="fas fa-user"></i>
+                                <h3>Back Shave</h3>
                             </div>
-                            <p class="service-desc">Complete grooming package including shave, beard trim, and styling for a fresh, polished look.</p>
+                            <p class="service-desc">Expert back shaving service for a hair-free, smooth back.</p>
                         </div>
-                        <div class="service-price">$60</div>
-                        <button class="book-btn">Book Now</button>
+                        <div class="service-price">$50</div>
+                        <div class="service-price">45 min</div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-circle"></i>
+                                <h3>Ear and Nose Shave</h3>
+                            </div>
+                            <p class="service-desc">Precise and gentle hair removal for ears and nose using specialized tools.</p>
+                        </div>
+                        <div class="service-price">$15</div>
+                        <div class="service-price">15 min</div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-female"></i>
+                                <h3>Brazilian Shave</h3>
+                            </div>
+                            <p class="service-desc">Professional intimate area shaving service for a clean, smooth result.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">With Crack (30 min)</span>
+                                    <span class="price">$60</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">With Full Bum (45 min)</span>
+                                    <span class="price">$60</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-tshirt"></i>
+                                <h3>Underarms Shave</h3>
+                            </div>
+                            <p class="service-desc">Quick and precise underarm shaving for smooth, hair-free skin.</p>
+                        </div>
+                        <div class="service-price">$10</div>
+                        <div class="service-price">15 min</div>
+                    </div>
+
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-user-circle"></i>
+                                <h3>Full Body Shave</h3>
+                            </div>
+                            <p class="service-desc">Comprehensive body shaving package for complete hair removal and smooth skin.</p>
+                        </div>
+                        <div class="service-price">$160</div>
+                        <div class="service-price">2 hrs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Massage Services -->
+            <div id="massage" class="service-category">
+                <h3 class="category-title">Massage Services</h3>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-spa"></i>
+                                <h3>Relaxation & Swedish Massage</h3>
+                            </div>
+                            <p class="service-desc">A gentle, flowing massage that promotes relaxation and improves circulation. Perfect for stress relief and overall wellness.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">60 min</span>
+                                    <span class="price">$80</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">90 min</span>
+                                    <span class="price">$120</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">2 hrs</span>
+                                    <span class="price">$160</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hand-holding-heart"></i>
+                                <h3>Deep Tissue with Stretch</h3>
+                            </div>
+                            <p class="service-desc">Intensive massage targeting deep muscle layers combined with therapeutic stretching to relieve chronic tension and improve flexibility.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">60 min</span>
+                                    <span class="price">$95</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">90 min</span>
+                                    <span class="price">$145</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">2 hrs</span>
+                                    <span class="price">$180</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">
+                                <i class="fas fa-hot-tub"></i>
+                                <h3>Hot Stone Massage</h3>
+                            </div>
+                            <p class="service-desc">Luxurious massage using heated stones to release muscle tension, promote deep relaxation, and improve circulation.</p>
+                            <div class="service-subcategories">
+                                <div class="subcategory">
+                                    <span class="duration">60 min</span>
+                                    <span class="price">$120</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">90 min</span>
+                                    <span class="price">$150</span>
+                                </div>
+                                <div class="subcategory">
+                                    <span class="duration">2 hrs</span>
+                                    <span class="price">$200</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -765,7 +966,6 @@
                             <p class="service-desc">Luxurious combination of a rejuvenating facial treatment followed by a relaxing full-body massage for ultimate pampering.</p>
                         </div>
                         <div class="service-price">$140</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
                     
                 </div>
@@ -785,7 +985,6 @@
                             <p class="service-desc">Special haircut service for the young gentlemen.</p>
                         </div>
                         <div class="service-price">$18</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
                     
                     <div class="service-item">
@@ -797,7 +996,6 @@
                             <p class="service-desc">Stylish haircuts designed for teenagers.</p>
                         </div>
                         <div class="service-price">$22</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
                     
                     <div class="service-item">
@@ -809,7 +1007,6 @@
                             <p class="service-desc">Special package including haircuts for both father and son.</p>
                         </div>
                         <div class="service-price">$40</div>
-                        <button class="book-btn">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -891,16 +1088,15 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-info">
-                    <h3>HealingHands</h3>
-                    <p>123 Main Street<br>City, State 12345</p>
-                    <p>Phone: (123) 456-7890</p>
-                    <p>Email: info@healinghands.com</p>
+                    <h3>Best Healing Hands</h3>
+                    <p>3504 Hurontario St<br></p>
+                    <p>Phone: (647) 778-7017</p>
+                    <p>Email: info@besthealinghands.com</p>
                 </div>
                 <div class="footer-hours">
                     <h3>Hours</h3>
-                    <p>Monday - Friday: 9am - 8pm</p>
-                    <p>Saturday: 9am - 6pm</p>
-                    <p>Sunday: 10am - 4pm</p>
+                    <p>Monday - Saturday: 9am - 8pm</p>
+                    <p>Sunday: Closed</p>
                 </div>
                 <div class="footer-social">
                     <h3>Follow Us</h3>
