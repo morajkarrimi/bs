@@ -425,7 +425,7 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="cta-button">
-                <a href="#" class="btn">Book Now</a>
+                <a href="index.html" class="btn">Book Now</a>
             </div>
         </div>
     </nav>
@@ -647,100 +647,6 @@
                 if (link.getAttribute('href') === '#home') {
                     link.classList.add('active');
                 }
-            });
-
-            // Booking Modal Functionality
-            const bookNowButtons = document.querySelectorAll('.cta-button .btn');
-            const modalOverlay = document.querySelector('.modal-overlay');
-            const bookingModal = document.querySelector('.booking-modal');
-            const closeModal = document.querySelector('.close-modal');
-            const timeSlots = document.querySelectorAll('.time-slot');
-            const bookingForm = document.querySelector('.booking-form');
-            const bookingConfirmation = document.querySelector('.booking-confirmation');
-            const dateInput = document.getElementById('date');
-            
-            // Set min date to today
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            let mm = today.getMonth() + 1;
-            let dd = today.getDate();
-            
-            if (dd < 10) dd = '0' + dd;
-            if (mm < 10) mm = '0' + mm;
-            
-            const formattedToday = yyyy + '-' + mm + '-' + dd;
-            dateInput.setAttribute('min', formattedToday);
-            
-            // Open modal
-            bookNowButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    modalOverlay.classList.add('active');
-                    bookingModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-            
-            // Close modal
-            closeModal.addEventListener('click', () => {
-                modalOverlay.classList.remove('active');
-                bookingModal.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            
-            // Close modal when clicking outside
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.remove('active');
-                    bookingModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            // Time slot selection
-            timeSlots.forEach(slot => {
-                slot.addEventListener('click', () => {
-                    timeSlots.forEach(s => s.classList.remove('selected'));
-                    slot.classList.add('selected');
-                });
-            });
-            
-            // Form submission
-            bookingForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Get form data
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const service = document.getElementById('service').value;
-                const date = document.getElementById('date').value;
-                const selectedTimeSlot = document.querySelector('.time-slot.selected');
-                
-                if (!selectedTimeSlot) {
-                    alert('Please select a time slot');
-                    return;
-                }
-                
-                const time = selectedTimeSlot.textContent;
-                
-                // Here you would typically send this data to your backend
-                console.log('Booking submitted:', { name, email, phone, service, date, time });
-                
-                // Show confirmation
-                bookingForm.style.display = 'none';
-                bookingConfirmation.style.display = 'block';
-                
-                // Reset form after 3 seconds and close modal
-                setTimeout(() => {
-                    bookingForm.reset();
-                    timeSlots.forEach(slot => slot.classList.remove('selected'));
-                    bookingForm.style.display = 'block';
-                    bookingConfirmation.style.display = 'none';
-                    modalOverlay.classList.remove('active');
-                    bookingModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }, 3000);
             });
         });
     </script>
