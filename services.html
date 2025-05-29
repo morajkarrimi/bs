@@ -488,8 +488,8 @@
             <!-- Service Categories Tabs -->
             <div class="service-categories">
                 <button class="category-btn active" data-category="facial">Facial</button>
-                <button class="category-btn" data-category="waxing">Waxing</button>
-                <button class="category-btn" data-category="shaving">Shaving</button>
+                <button class="category-btn" data-category="waxingS">Waxing</button>
+                <button class="category-btn" data-category="shavingService">Shaving</button>
                 <button class="category-btn" data-category="massage">Massage</button>
                 <button class="category-btn" data-category="combos">COMBOS</button>
             </div>
@@ -551,7 +551,7 @@
             </div>
             
             <!-- Waxing Services -->
-            <div id="waxing" class="service-category">
+            <div id="waxingS" class="service-category">
                 <h3 class="category-title">Waxing Services</h3>
                 
                 <div class="service-list">
@@ -727,7 +727,7 @@
             </div>
             
             <!-- Shaving Services -->
-            <div id="shaving" class="service-category">
+            <div id="shavingService" class="service-category">
                 <h3 class="category-title">Shaving Services</h3>
                 
                 <div class="service-list">
@@ -1088,22 +1088,45 @@
             const categoryBtns = document.querySelectorAll('.category-btn');
             const serviceCategories = document.querySelectorAll('.service-category');
             
+            // Function to activate a specific category
+            function activateCategory(categoryId) {
+                // Update active button
+                categoryBtns.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-category') === categoryId) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Show corresponding category
+                serviceCategories.forEach(cat => {
+                    cat.classList.remove('active');
+                    if (cat.id === categoryId) {
+                        cat.classList.add('active');
+                        // Scroll to the category
+                        cat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+            
+            // Handle category button clicks
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Update active button
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show corresponding category
                     const category = this.getAttribute('data-category');
-                    serviceCategories.forEach(cat => {
-                        cat.classList.remove('active');
-                        if (cat.id === category) {
-                            cat.classList.add('active');
-                        }
-                    });
+                    activateCategory(category);
                 });
             });
+            
+            // Handle navigation from index.html
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1); // Remove the # symbol
+                console.log('Target section:', targetId);
+                
+                // Wait for the page to fully load
+                setTimeout(() => {
+                    activateCategory(targetId);
+                }, 100);
+            }
             
             // Special animations for service items
             const serviceItems = document.querySelectorAll('.service-item');

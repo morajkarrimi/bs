@@ -85,6 +85,7 @@
             font-size: 24px;
             cursor: pointer;
             color: var(--light-color);
+            z-index: 1001;
         }
         
         @media (max-width: 768px) {
@@ -95,27 +96,146 @@
             .nav-menu {
                 position: fixed;
                 top: 70px;
-                left: -100%;
+                left: 0;
                 width: 100%;
-                height: calc(100vh - 70px);
                 background-color: var(--primary-color);
                 flex-direction: column;
                 align-items: center;
-                padding: 40px 0;
-                transition: 0.3s ease;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
             
             .nav-menu.active {
-                left: 0;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
             
             .nav-menu li {
-                margin: 15px 0;
+                margin: 10px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 10px 0;
+                font-size: 18px;
             }
             
             .cta-button {
                 display: none;
             }
+
+            /* Hero section mobile adjustments */
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            /* Services section mobile adjustments */
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 20px;
+                overflow-x: visible;
+            }
+
+            .services-section .service-card {
+                width: 100%;
+                height: 180px;
+                padding: 20px;
+            }
+
+            .services-section .service-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .services-section .service-icon i {
+                font-size: 28px;
+            }
+
+            .services-section .service-card h3 {
+                font-size: 20px;
+            }
+
+            /* Section header mobile adjustments */
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .section-header p {
+                font-size: 1.1rem;
+            }
+
+            /* Footer mobile adjustments */
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            /* Container padding adjustment */
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Additional mobile optimizations for smaller screens */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-section .service-card {
+                height: 160px;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn-large {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+        }
+
+        /* Ensure smooth scrolling on mobile */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Improve touch targets */
+        .service-card,
+        .nav-menu a,
+        .btn,
+        .menu-toggle {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Prevent text size adjustment */
+        html {
+            -webkit-text-size-adjust: 100%;
         }
 
         /* Booking Modal Styles */
@@ -321,44 +441,91 @@
         }
 
         .services-section .service-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            padding: 30px;
-            width: 280px;
-            height: 320px;
-            margin: 0 auto;
+            padding: 30px 25px;
+            width: 100%;
+            height: 200px;
+            margin: 0;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .services-section .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 1;
+            transition: opacity 0.4s ease;
         }
 
         .services-section .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .services-section .service-card:hover::before {
+            opacity: 0.8;
         }
 
         .services-section .service-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            background: var(--secondary-color);
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .services-section .service-card:hover .service-icon {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .services-section .service-icon i {
-            font-size: 28px;
+            font-size: 36px;
             color: white;
+            transition: transform 0.4s ease;
+        }
+
+        .services-section .service-card:hover .service-icon i {
+            transform: scale(1.1);
         }
 
         .services-section .service-card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
+            font-size: 24px;
             text-align: center;
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .services-section .service-card:hover h3 {
+            transform: translateY(-2px);
+            color: var(--secondary-color);
         }
 
         .services-section .service-card p {
@@ -381,30 +548,56 @@
         }
 
         .services-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             margin-top: 40px;
-            flex-wrap: nowrap;
-            overflow-x: auto;
             padding: 20px 0;
         }
 
         @media (max-width: 1200px) {
             .services-grid {
-                justify-content: flex-start;
-                padding: 20px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 576px) {
             .services-grid {
-                gap: 15px;
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
-            
-            .services-section .service-card {
-                min-width: 200px;
+        }
+
+        /* Add touch feedback for mobile */
+        @media (hover: none) {
+            .services-section .service-card:active {
+                transform: scale(0.98);
+                background: rgba(255, 255, 255, 0.95);
             }
+        }
+
+        /* Add cursor pointer to service cards */
+        .services-section .service-card {
+            cursor: pointer;
+        }
+
+        /* Add active state for better touch feedback */
+        .services-section .service-card:active {
+            transform: scale(0.98);
+            transition: transform 0.2s ease;
+        }
+
+        /* Add focus state for accessibility */
+        .services-section .service-card:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        /* Add keyboard navigation support */
+        .services-section .service-card:focus-visible {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -472,36 +665,28 @@
                     <div class="service-icon">
                         <i class="fas fa-spa"></i>
                     </div>
-                    <h3>Facial Treatments</h3>
-                    <p>Rejuvenate your skin with our premium facial treatments, including deep cleansing, exfoliation, and hydration.</p>
-                    <a href="services.html#facial" class="service-link">Learn More</a>
+                    <h3>Facial</h3>
                 </div>
 
-                <div class="service-card" onclick="window.location.href='services.html#shaving'">
+                <div class="service-card" onclick="window.location.href='services.html#shavingService'">
                     <div class="service-icon">
-                        <i class="fas fa-razor"></i>
+                        <i class="fas fa-cut"></i>
                     </div>
-                    <h3>Shaving Services</h3>
-                    <p>Experience the art of traditional shaving with our expert barbers using premium products and techniques.</p>
-                    <a href="services.html#shaving" class="service-link">Learn More</a>
+                    <h3>Shaving</h3>
                 </div>
 
-                <div class="service-card" onclick="window.location.href='services.html#waxing'">
+                <div class="service-card" onclick="window.location.href='services.html#waxingS'">
                     <div class="service-icon">
                         <i class="fas fa-fire"></i>
                     </div>
-                    <h3>Waxing Services</h3>
-                    <p>Professional waxing services for smooth, hair-free skin using high-quality products and gentle techniques.</p>
-                    <a href="services.html#waxing" class="service-link">Learn More</a>
+                    <h3>Waxing</h3>
                 </div>
 
                 <div class="service-card" onclick="window.location.href='services.html#massage'">
                     <div class="service-icon">
                         <i class="fas fa-spa"></i>
                     </div>
-                    <h3>Massage Services</h3>
-                    <p>Experience ultimate relaxation with our therapeutic massage treatments, designed to relieve stress and promote wellness.</p>
-                    <a href="services.html#massage" class="service-link">Learn More</a>
+                    <h3>Massage</h3>
                 </div>
             </div>
             
@@ -648,6 +833,37 @@
                     link.classList.add('active');
                 }
             });
+
+            // Get all service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            // Add click event listener to each card
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Get the href from the onclick attribute
+                    const href = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    console.log('Navigating to:', href);
+                    
+                    // Navigate to the services page with the correct section
+                    window.location.href = href;
+                });
+            });
+
+            // Handle navigation to specific sections when coming from index.html
+            if (window.location.hash) {
+                console.log('Current hash:', window.location.hash);
+                const targetSection = document.querySelector(window.location.hash);
+                if (targetSection) {
+                    console.log('Found target section:', targetSection);
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                        console.log('Scrolled to section');
+                    }, 100);
+                } else {
+                    console.log('Target section not found');
+                }
+            }
         });
     </script>
 </body>
