@@ -178,4 +178,125 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial check
     checkVisibility();
+});
+
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const menuIcon = menuToggle.querySelector('i');
+    const body = document.body;
+    
+    function toggleMenu() {
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        
+        // Toggle between bars and times icon
+        if (menuIcon.classList.contains('fa-bars')) {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+        } else {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+    }
+    
+    menuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (navMenu.classList.contains('active') && 
+            !navMenu.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    // Close menu when clicking a menu item
+    const menuItems = document.querySelectorAll('.nav-menu a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Prevent menu from closing when clicking inside
+    navMenu.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        }, 250);
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
+
+    // Add touch feedback for mobile
+    if ('ontouchstart' in window) {
+        document.querySelectorAll('.service-card, .nav-menu a, .btn').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.opacity = '0.7';
+            });
+            element.addEventListener('touchend', function() {
+                this.style.opacity = '1';
+            });
+        });
+    }
+});
+
+// Back to top button functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    if (backToTopButton) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+});
+
+// Active menu item highlighting
+document.addEventListener('DOMContentLoaded', function() {
+    const currentLocation = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (currentLocation.includes(linkPath) && linkPath !== '#') {
+            link.classList.add('active');
+        } else if (linkPath === '#home' && currentLocation === '/') {
+            link.classList.add('active');
+        }
+    });
 }); 
