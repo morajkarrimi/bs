@@ -453,12 +453,12 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="cta-button">
-                <a href="services.html" class="btn">Book Now</a>
+                <a href="contact.html" class="btn">Book Now</a>
             </div>
         </div>
     </nav>
@@ -1062,39 +1062,13 @@
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            menuToggle.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-                menuToggle.classList.toggle('active');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                }
-            });
-
-            // Mark the services link as active in the navigation
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === 'services.html') {
-                    link.classList.add('active');
-                }
-            });
-            
             // Category tabs functionality
             const categoryBtns = document.querySelectorAll('.category-btn');
             const serviceCategories = document.querySelectorAll('.service-category');
             
             // Function to activate a specific category
             function activateCategory(categoryId) {
-                // Update active button
+                // Update buttons
                 categoryBtns.forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.getAttribute('data-category') === categoryId) {
@@ -1102,48 +1076,29 @@
                     }
                 });
                 
-                // Show corresponding category
-                serviceCategories.forEach(cat => {
-                    cat.classList.remove('active');
-                    if (cat.id === categoryId) {
-                        cat.classList.add('active');
-                        // Scroll to the category
-                        cat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Update service categories
+                serviceCategories.forEach(category => {
+                    category.style.display = 'none';
+                    if (category.id === categoryId) {
+                        category.style.display = 'block';
                     }
                 });
             }
             
-            // Handle category button clicks
+            // Add click event to category buttons
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    activateCategory(category);
+                    const categoryId = this.getAttribute('data-category');
+                    activateCategory(categoryId);
                 });
             });
             
-            // Handle navigation from index.html
-            if (window.location.hash) {
-                const targetId = window.location.hash.substring(1); // Remove the # symbol
-                console.log('Target section:', targetId);
-                
-                // Wait for the page to fully load
-                setTimeout(() => {
-                    activateCategory(targetId);
-                }, 100);
+            // Check for hash in URL and activate corresponding category
+            const hash = window.location.hash;
+            if (hash) {
+                const categoryId = hash.substring(1);
+                activateCategory(categoryId);
             }
-            
-            // Special animations for service items
-            const serviceItems = document.querySelectorAll('.service-item');
-            serviceItems.forEach((item, index) => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(30px)';
-                
-                setTimeout(() => {
-                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, index * 100 + 100); // Staggered animation
-            });
         });
     </script>
 </body>
