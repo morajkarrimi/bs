@@ -186,10 +186,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Video play/pause optimization - only play videos when they are in viewport
+    // Video handling for iOS devices
     const videos = document.querySelectorAll('video');
     
+    // Function to handle iOS video playback
+    function handleIOSVideoPlayback() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        if (isIOS) {
+            videos.forEach(video => {
+                // Set playsinline attribute
+                video.setAttribute('playsinline', '');
+                // Set muted attribute (required for autoplay on iOS)
+                video.setAttribute('muted', '');
+                // Remove controls
+                video.removeAttribute('controls');
+                // Set preload to auto
+                video.setAttribute('preload', 'auto');
+                
+                // Handle video loading
+                video.addEventListener('loadedmetadata', function() {
+                    // Ensure video is muted for autoplay
+                    video.muted = true;
+                    // Try to play
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log('Autoplay prevented:', error);
+                            // If autoplay fails, show a play button or handle accordingly
+                            video.style.opacity = '0.5';
+                        });
+                    }
+                });
+            });
+        }
+    }
+
+    // Function to handle video visibility
     function handleVideoVisibility() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
         videos.forEach(video => {
             const rect = video.getBoundingClientRect();
             const windowHeight = window.innerHeight;
@@ -202,19 +238,58 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Play or pause based on visibility
             if (isVisible) {
-                if (video.paused) video.play();
+                if (video.paused) {
+                    // For iOS, ensure video is muted before playing
+                    if (isIOS) {
+                        video.muted = true;
+                    }
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log('Playback prevented:', error);
+                        });
+                    }
+                }
             } else {
-                if (!video.paused) video.pause();
+                if (!video.paused) {
+                    video.pause();
+                }
             }
         });
     }
     
-    // Check video visibility on scroll
-    window.addEventListener('scroll', handleVideoVisibility);
+    // Initialize video handling
+    handleIOSVideoPlayback();
+    
+    // Check video visibility on scroll with throttling
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(function() {
+                handleVideoVisibility();
+                scrollTimeout = null;
+            }, 100); // Throttle to every 100ms
+        }
+    });
     
     // Initial check
     handleVideoVisibility();
-    
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            // Pause all videos when page is hidden
+            videos.forEach(video => {
+                if (!video.paused) {
+                    video.pause();
+                }
+            });
+        } else {
+            // Resume video playback when page becomes visible
+            handleVideoVisibility();
+        }
+    });
+
     // Reveal animations on scroll
     const revealElements = document.querySelectorAll('.service-card, .about-image, .about-content, .services-video-container, .about-video-container, .service-teaser-card, .services-teaser .section-header, .services-teaser .text-center');
     
