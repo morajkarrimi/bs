@@ -12,68 +12,112 @@ document.addEventListener('DOMContentLoaded', function() {
     const servicesVideoEl = document.getElementById('services-video');
     const aboutVideoEl = document.getElementById('about-video');
     
-    // Mobile menu functionality
-    if (menuToggle && navMenu && menuIcon) {
-        function toggleMenu() {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-            body.classList.toggle('menu-open');
-            
-            // Toggle between bars and times icon
-            if (menuIcon.classList.contains('fa-bars')) {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-times');
-            } else {
-                menuIcon.classList.remove('fa-times');
-                menuIcon.classList.add('fa-bars');
-            }
-        }
+    // Menu functionality
+    let isMenuOpen = false;
+
+    // Function to toggle menu
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        body.classList.toggle('menu-open');
         
+        // Update aria attributes
+        menuToggle.setAttribute('aria-expanded', isMenuOpen);
+        navMenu.setAttribute('aria-hidden', !isMenuOpen);
+    }
+
+    // Menu toggle click handler
+    if (menuToggle) {
         menuToggle.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
             toggleMenu();
         });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (navMenu.classList.contains('active') && 
-                !navMenu.contains(e.target) && 
-                !menuToggle.contains(e.target)) {
+
+        // Add keyboard support
+        menuToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
                 toggleMenu();
             }
         });
+    }
 
-        // Close menu when clicking a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                if (navMenu.classList.contains('active')) {
-                    toggleMenu();
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (isMenuOpen && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            toggleMenu();
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isMenuOpen) {
+            toggleMenu();
+        }
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 992 && isMenuOpen) {
+                toggleMenu();
+            }
+        }, 250);
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        if (isMenuOpen) {
+            toggleMenu();
+        }
+    });
+
+    // Add mobile CTA button to menu
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton && window.innerWidth <= 992) {
+        const mobileCta = document.createElement('div');
+        mobileCta.className = 'mobile-cta';
+        mobileCta.innerHTML = ctaButton.innerHTML;
+        navMenu.appendChild(mobileCta);
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    // Close menu if open
+                    if (isMenuOpen) {
+                        toggleMenu();
+                    }
+                    
+                    // Scroll to target
+                    const headerOffset = 70;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
                 }
+            }
+        });
+    });
+
+    // Back to top button
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        });
-
-        // Prevent menu from closing when clicking inside
-        navMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // Handle window resize
-        let resizeTimer;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function() {
-                if (window.innerWidth > 992 && navMenu.classList.contains('active')) {
-                    toggleMenu();
-                }
-            }, 250);
-        });
-
-        // Handle escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                toggleMenu();
-            }
         });
     }
     
@@ -86,36 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.remove('scrolled');
             if (backToTopBtn) backToTopBtn.style.display = 'none';
         }
-    });
-    
-    // Back to top button
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const navbarHeight = navbar.offsetHeight;
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - navbarHeight,
-                    behavior: 'smooth'
-                });
-            }
-        });
     });
     
     // Active menu item highlighting
@@ -241,4 +255,73 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial check
     checkVisibility();
+
+    // Form handling
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            let isValid = true;
+
+            if (!name.value.trim()) {
+                showError(name, 'Please enter your name');
+                isValid = false;
+            } else {
+                clearError(name);
+            }
+
+            if (!email.value.trim()) {
+                showError(email, 'Please enter your email');
+                isValid = false;
+            } else if (!isValidEmail(email.value)) {
+                showError(email, 'Please enter a valid email');
+                isValid = false;
+            } else {
+                clearError(email);
+            }
+
+            if (!message.value.trim()) {
+                showError(message, 'Please enter your message');
+                isValid = false;
+            } else {
+                clearError(message);
+            }
+
+            if (isValid) {
+                // In a real scenario, you would send this data to your server
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            }
+        });
+    }
+
+    // Helper functions
+    function showError(input, message) {
+        const formGroup = input.closest('.form-group');
+        const error = formGroup.querySelector('.error-message') || document.createElement('div');
+        error.className = 'error-message';
+        error.textContent = message;
+        if (!formGroup.querySelector('.error-message')) {
+            formGroup.appendChild(error);
+        }
+        input.classList.add('error');
+    }
+
+    function clearError(input) {
+        const formGroup = input.closest('.form-group');
+        const error = formGroup.querySelector('.error-message');
+        if (error) {
+            error.remove();
+        }
+        input.classList.remove('error');
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 }); 
