@@ -14,24 +14,79 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Menu functionality
     let isMenuOpen = false;
+    let touchStartY = 0;
+    let touchEndY = 0;
 
-    // Function to toggle menu
-    function toggleMenu() {
-        isMenuOpen = !isMenuOpen;
-        menuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        body.classList.toggle('menu-open');
+    // Function to toggle menu with improved state management
+    function toggleMenu(forceState = null) {
+        const newState = forceState !== null ? forceState : !isMenuOpen;
         
-        // Update aria attributes
-        menuToggle.setAttribute('aria-expanded', isMenuOpen);
-        navMenu.setAttribute('aria-hidden', !isMenuOpen);
+        if (newState === isMenuOpen) return; // Prevent unnecessary toggles
+        
+        isMenuOpen = newState;
+        
+        // Update menu toggle button
+        if (menuToggle) {
+            menuToggle.classList.toggle('active', isMenuOpen);
+            menuToggle.setAttribute('aria-expanded', isMenuOpen);
+            
+            // Update menu icon if it exists
+            if (menuIcon) {
+                menuIcon.className = isMenuOpen ? 'fas fa-times' : 'fas fa-bars';
+            }
+        }
+        
+        // Update navigation menu
+        if (navMenu) {
+            navMenu.classList.toggle('active', isMenuOpen);
+            navMenu.setAttribute('aria-hidden', !isMenuOpen);
+            
+            // Prevent body scroll when menu is open
+            if (isMenuOpen) {
+                body.style.overflow = 'hidden';
+                body.style.position = 'fixed';
+                body.style.width = '100%';
+                body.style.top = `-${window.scrollY}px`;
+            } else {
+                const scrollY = body.style.top;
+                body.style.overflow = '';
+                body.style.position = '';
+                body.style.width = '';
+                body.style.top = '';
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
+        
+        // Update body class
+        body.classList.toggle('menu-open', isMenuOpen);
     }
 
-    // Menu toggle click handler
+    // Menu toggle click handler with touch support
     if (menuToggle) {
+        // Touch start handler
+        menuToggle.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+            e.preventDefault(); // Prevent default to avoid double-tap zoom
+        }, { passive: false });
+
+        // Touch end handler
+        menuToggle.addEventListener('touchend', function(e) {
+            touchEndY = e.changedTouches[0].clientY;
+            const touchDiff = Math.abs(touchEndY - touchStartY);
+            
+            // Only toggle if it's a tap (not a swipe)
+            if (touchDiff < 10) {
+                e.preventDefault();
+                toggleMenu();
+            }
+        }, { passive: false });
+
+        // Click handler for non-touch devices
         menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleMenu();
+            if (!('ontouchstart' in window)) {
+                e.preventDefault();
+                toggleMenu();
+            }
         });
 
         // Add keyboard support
@@ -43,27 +98,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Close menu when clicking outside
+    // Close menu when clicking outside with improved touch handling
     document.addEventListener('click', function(e) {
-        if (isMenuOpen && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-            toggleMenu();
+        if (isMenuOpen && navMenu && !navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+            toggleMenu(false);
         }
     });
 
     // Close menu on escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && isMenuOpen) {
-            toggleMenu();
+            toggleMenu(false);
         }
     });
 
-    // Handle window resize
+    // Handle window resize with debouncing
     let resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(function() {
             if (window.innerWidth > 992 && isMenuOpen) {
-                toggleMenu();
+                toggleMenu(false);
             }
         }, 250);
     });
@@ -71,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle orientation change
     window.addEventListener('orientationchange', function() {
         if (isMenuOpen) {
-            toggleMenu();
+            toggleMenu(false);
         }
     });
 
@@ -389,5 +444,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // Handle navigation link clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (isMenuOpen) {
+                toggleMenu(false);
+            }
+        });
+    });
+
+    // Prevent touch events from propagating through the menu when it's open
+    if (navMenu) {
+        navMenu.addEventListener('touchmove', function(e) {
+            if (isMenuOpen) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     }
 }); 
