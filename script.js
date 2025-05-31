@@ -75,15 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Add mobile CTA button to menu
-    const ctaButton = document.querySelector('.cta-button');
-    if (ctaButton && window.innerWidth <= 992) {
-        const mobileCta = document.createElement('div');
-        mobileCta.className = 'mobile-cta';
-        mobileCta.innerHTML = ctaButton.innerHTML;
-        navMenu.appendChild(mobileCta);
-    }
-
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
